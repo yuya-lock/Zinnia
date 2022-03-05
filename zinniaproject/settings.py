@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'zinniaapp',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +77,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'zinniaproject.wsgi.application'
 
-AUTH_USER_MODEL = 'zinniaapp.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # Database
