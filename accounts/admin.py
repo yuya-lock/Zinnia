@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
-from .forms import UserChangeForm, UserCreationForm
+from .forms import UserChangeForm, RegistForm
 
 
 User = get_user_model()
@@ -9,7 +9,7 @@ User = get_user_model()
 
 class CustomizeUserAdmin(UserAdmin):
     form = UserChangeForm
-    add_form = UserCreationForm
+    add_form = RegistForm
 
     list_display = ('username', 'email', 'is_staff')
 

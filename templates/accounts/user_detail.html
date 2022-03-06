@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'accounts:user_update' user.pk %}">ユーザー情報変更</a>
+    <a href="{% url 'accounts:user_update' user.pk %}">パスワード変更</a>
+    <div class="card">
+        <p>ユーザー名：{{ object.username }}</p>
+        <p>メールアドレス：{{ object.email }}</p>
+        {% if object.picture %}
+            <div style="height: auto; width: auto"><img src="{{ object.picture.url }}"></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
