@@ -2,12 +2,8 @@
 {% load static %}
 
 {% block customcss %}
-<link href="{% static 'home.css' %}" rel="stylesheet">
+<link href="{% static 'accounts/home.css' %}" rel="stylesheet">
 {% endblock customcss %}
-
-{% block header %}
-{% include "_navbar.html" %}
-{% endblock header %}
 
 {% block content %}
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">

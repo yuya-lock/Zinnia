@@ -11,14 +11,31 @@
 
         <title>Zinnia</title>
     </head>
-    
-        {% block header %}
-        {% endblock header %}
+    <body>
+        <header class="py-5">
+            <nav class="py-2 bg-light border-bottom fixed-top">
+                <div class="container d-flex flex-wrap">
+                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                        <span class="fs-4">Zinnia</span>
+                    </a>
+                    <ul class="nav">
+                        <li class="nav-item"><a href="{% url 'accounts:home' %}" class="nav-link link-dark px-2">Home</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'accounts:user_logout' %}" class="nav-link link-dark px-2">Logout</a></li>
+                        <li class="nav-item"><a href="{% url 'accounts:user_detail' user.pk %}" class="nav-link link-dark px-2">{{ user.username }}</a></li>
+                        {% else %}
+                        <li class="nav-item"><a href="{% url 'accounts:user_login' %}" class="nav-link link-dark px-2">Login</a></li>
+                        <li class="nav-item"><a href="{% url 'accounts:regist' %}" class="nav-link link-dark px-2">Sign up</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
         
         {% block content %}
         {% endblock content %}
         
         {% block footer %}
         {% endblock footer %}
-
+    </body>
 </html>

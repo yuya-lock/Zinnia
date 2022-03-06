@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link href="{% static 'accounts/regist.css' %}" rel="stylesheet">
+{% endblock customcss %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="新規登録">
+    </form>
+</div>
+{% endblock content %}
