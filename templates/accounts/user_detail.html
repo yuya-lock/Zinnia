@@ -3,8 +3,9 @@
 
 {% block content %}
 <div class="container">
-    <a href="{% url 'accounts:user_update' user.pk %}">ユーザー情報変更</a>
-    <a href="{% url 'accounts:user_update' user.pk %}">パスワード変更</a>
+    <a href="{% url 'accounts:user_update' pk=user.pk %}">ユーザー情報変更</a>
+    <a href="{% url 'accounts:password_change' %}">パスワード変更</a>
+    <a href="{% url 'accounts:user_delete' pk=user.pk %}">アカウント削除</a>
     <div class="card">
         <p>ユーザー名：{{ object.username }}</p>
         <p>メールアドレス：{{ object.email }}</p>

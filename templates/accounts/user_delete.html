@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <h3>{{ object.username }}さんのアカウント削除します</h3>
+        <p>削除してよろしいですか？</p>
+        <input type="submit" value="削除">
+    </form>
+</div>
+{% endblock %}
