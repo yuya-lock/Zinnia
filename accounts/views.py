@@ -1,13 +1,16 @@
-from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.shortcuts import render, redirect
+from django.views.generic.edit import DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.files.storage import FileSystemStorage
+from django.urls import reverse_lazy
+from django.core.exceptions import ValidationError
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 
-from .forms import RegistForm, UserLoginForm, UserUpdateForm
+from .forms import RegistForm, UserLoginForm, UserUpdateForm, PasswordChangeForm
 from .models import UserActivateTokens, User
 import os
 
@@ -16,9 +19,19 @@ class HomeView(TemplateView):
     template_name = os.path.join('accounts', 'home.html')
 
 
-class RegistUserView(CreateView):
-    template_name = os.path.join('accounts', 'regist.html')
-    form_class = RegistForm
+def regist(request):
+    form = RegistForm(request.POST or None)
+    if form.is_valid():
+        try:
+            form.save()
+            return redirect('accounts:user_login')
+        except ValidationError as e:
+            form.add_error('password', e)
+    return render(
+        request, 'accounts/regist.html', context={
+            'form': form,
+        } 
+    )
 
 
 def activate_user(request, token):
@@ -39,7 +52,7 @@ class UserLoginView(LoginView):
         return super().form_valid(form)
 
 
-class UserLogoutView(LogoutView):
+class UserLogoutView(LoginRequiredMixin, LogoutView):
     pass
 
 
@@ -47,15 +60,14 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = os.path.join('accounts', 'user_detail.html')
 
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
-
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = os.path.join('accounts', 'user_update.html')
-    
     form_class = UserUpdateForm
     model = User
+
+    def get_success_url(self):
+        return reverse_lazy('accounts:user_detail', kwargs={'pk': self.object.id})
 
 
 def upload_model_form(request):
@@ -69,3 +81,25 @@ def upload_model_form(request):
     return render(request, 'accounts/user_update.html', context={
         'form': form, 'user': user
     })
+
+
+class UserDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = os.path.join('accounts', 'user_delete.html')
+    model = User
+    success_url = reverse_lazy('accounts:regist')
+
+
+def password_change(request):
+    form = PasswordChangeForm(request.POST or None, instance=request.user)
+    if form.is_valid():
+        try:
+            form.save()
+            messages.success(request, 'パスワードを変更しました')
+            update_session_auth_hash(request, request.user)
+        except ValidationError as e:
+            form.add_error('password', e)
+    return render(
+        request, 'accounts/password_change.html', context={
+            'form': form,
+        }
+    )

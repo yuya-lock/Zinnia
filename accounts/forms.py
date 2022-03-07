@@ -61,3 +61,26 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'picture']
+
+
+class PasswordChangeForm(forms.ModelForm):
+    password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
+    confirm_password = forms.CharField(label='パスワード再入力', widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('password', )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+        if password != confirm_password:
+            raise ValidationError('パスワードが一致しません。')
+
+    def save(self, commit=False):
+        user = super().save(commit=False)
+        validate_password(self.cleaned_data['password'], user)
+        user.set_password(self.cleaned_data['password'])
+        user.save()
+        return user
