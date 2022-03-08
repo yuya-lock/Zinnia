@@ -2,15 +2,21 @@
 {% load static %}
 
 {% block customcss %}
-<link href="{% static 'accounts/regist.css' %}" rel="stylesheet">
-{% endblock customcss %}
+<link href="{% static 'accounts/user_detail.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="新規登録">
-    </form>
+<div class="container my-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+        <div class="card" style="padding: 50px;">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="新規登録">
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
+
