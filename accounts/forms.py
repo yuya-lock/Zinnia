@@ -48,7 +48,7 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.EmailField(label='メールアドレス')
+    username = forms.CharField(label='ユーザー名')
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
     remember = forms.BooleanField(label='ログイン状態を保持する', required=False)
 

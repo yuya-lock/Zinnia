@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <p>削除してよろしいですか？</p>
+        <input type="submit" value="削除">
+    </form>
+</div>
+{% endblock %}

@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 class UserManager(BaseUserManager):
 
     def create_user(self, username, email, password=None):
-        if not email:
-            raise ValueError('メールアドレスは必須です。')
+        if not username:
+            raise ValueError('ユーザー名は必須です。')
         user = self.model(
             username=username,
             email=email
@@ -36,14 +36,14 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=32)
-    email = models.EmailField(max_length=255, unique=True)
+    username = models.CharField(max_length=32, unique=True)
+    email = models.EmailField(max_length=255)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     picture = models.FileField(null=True, upload_to='picture/')
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     objects = UserManager()
 
@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = 'users'
 
     def __str__(self):
-        return self.email
+        return self.username
 
     def get_absolute_url(self):
         return reverse_lazy('accounts:home')

@@ -12,6 +12,7 @@ from django.contrib.auth import update_session_auth_hash
 
 from .forms import RegistForm, UserLoginForm, UserUpdateForm, PasswordChangeForm
 from .models import UserActivateTokens, User
+from shares.models import Post
 import os
 
 
@@ -59,6 +60,11 @@ class UserLogoutView(LoginRequiredMixin, LogoutView):
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = os.path.join('accounts', 'user_detail.html')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_posts'] = Post.objects.filter_by_post(user=self.object)
+        return context
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
