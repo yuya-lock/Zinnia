@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth import get_user_model
@@ -11,7 +12,7 @@ User = get_user_model()
 
 
 class RegistForm(forms.ModelForm):
-    username = forms.CharField(label='名前')
+    username = forms.CharField(label='ユーザー名')
     email = forms.EmailField(label='メールアドレス')
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
     confirm_password = forms.CharField(label='パスワード再入力', widget=forms.PasswordInput())
