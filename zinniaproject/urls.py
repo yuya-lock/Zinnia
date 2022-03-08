@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', TemplateView.as_view(template_name='index.html')),
+    path('shares/', include('shares.urls')),
 ]
 
 if settings.DEBUG:
