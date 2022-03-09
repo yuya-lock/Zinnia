@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% include "_header.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for hall in object_list %}
+    {% endfor %}
+</div>
+{% endblock %}
