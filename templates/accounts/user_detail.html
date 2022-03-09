@@ -11,9 +11,11 @@
 
 {% block content %}
 <div class="container">
-    <a href="{% url 'accounts:user_update' pk=user.pk %}">ユーザー情報変更</a>
-    <a href="{% url 'accounts:password_change' %}">パスワード変更</a>
-    <a href="{% url 'accounts:user_delete' pk=user.pk %}">アカウント削除</a>
+    {% if request.user.id == post_user_id %}
+        <a href="{% url 'accounts:user_update' pk=user.pk %}">ユーザー情報変更</a>
+        <a href="{% url 'accounts:password_change' %}">パスワード変更</a>
+        <a href="{% url 'accounts:user_delete' pk=user.pk %}">アカウント削除</a>
+    {% endif %}
     <div class="card">
         {% if object.picture %}
             <div style="height: auto; width: auto"><img src="{{ object.picture.url }}" class="img-thumbnail"></div>
