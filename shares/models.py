@@ -1,6 +1,5 @@
 from django.db import models
 from accounts.models import User
-from django.utils import timezone
 
 
 class BaseModel(models.Model):
@@ -28,6 +27,8 @@ class Post(BaseModel):
         User, on_delete=models.CASCADE
     )
 
+    REQUIRED_FIELDS = ['title', 'university', 'body', 'picture']
+
     objects = PostManager()
 
     class Meta:
@@ -35,28 +36,3 @@ class Post(BaseModel):
 
     def __str__(self):
         return self.title
-
-
-class Comment(BaseModel):
-    body = models.TextField(max_length=2200)
-    post = models.ForeignKey(
-        Post, on_delete=models.CASCADE
-    )
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE
-    )
-
-    class Meta:
-        db_table = 'comments'
-
-    
-class Like(models.Model):
-    post = models.ForeignKey(
-        Post, on_delete=models.CASCADE
-    )
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE
-    )
-
-    class Meta:
-        db_table = 'likes'
