@@ -15,6 +15,7 @@ class PostListView(LoginRequiredMixin, ListView):
     template_name = os.path.join('shares', 'post_list.html')
     model = Post
     queryset = Post.objects.order_by('-created_at')
+    paginate_by = 3
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):
