@@ -64,6 +64,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_posts'] = Post.objects.filter_by_post(user=self.object)
+        context['post_user_id'] = self.kwargs['pk']
         return context
 
 

@@ -6,9 +6,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <button><a href="{% url 'shares:post_update' pk=post.pk %}" class="nav-link link-dark px-2">編集</a></button>
-    <button><a href="{% url 'shares:post_delete' pk=post.pk %}" class="nav-link link-dark px-2">削除</a></button>
+<div class="container py-5">
+    {% for post in user_posts %}
+    {% if object.id == post.id %}
+        <button><a href="{% url 'shares:post_update' pk=post.pk %}" class="nav-link link-dark px-2">編集</a></button>
+        <button><a href="{% url 'shares:post_delete' pk=post.pk %}" class="nav-link link-dark px-2">削除</a></button>
+    {% endif %}
+    {% endfor %}
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
