@@ -14,9 +14,9 @@
         <ul class="nav">
             <li class="nav-item"><a href="{% url 'accounts:home' %}" class="nav-link link-dark px-2">Home</a></li>
             {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'accounts:user_detail' pk=user.pk %}" class="nav-link link-dark px-2">Mypage</a></li>
+            <li class="nav-item"><a href="{% url 'shares:post_list' %}" class="nav-link link-dark px-2">All posts</a></li>
             <li class="nav-item"><a href="{% url 'accounts:user_logout' %}" class="nav-link link-dark px-2">Logout</a></li>
-            <li class="nav-item"><a href="{% url 'accounts:user_detail' pk=user.pk %}" class="nav-link link-dark px-2">MyPage</a></li>
-            <li class="nav-item"><a href="{% url 'shares:post_list' %}" class="nav-link link-dark px-2">投稿一覧</a></li>
             {% else %}
             <li class="nav-item"><a href="{% url 'accounts:user_login' %}" class="nav-link link-dark px-2">Login</a></li>
             <li class="nav-item"><a href="{% url 'accounts:regist' %}" class="nav-link link-dark px-2">Sign up</a></li>

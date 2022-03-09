@@ -11,16 +11,16 @@ class CustomizeUserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = RegistForm
 
-    list_display = ('username', 'email', 'is_staff')
+    list_display = ('username', 'circle', 'is_staff')
 
     fieldsets = (
-        ('ユーザ情報', {'fields': ('username', 'email', 'password', 'picture')}),
+        ('ユーザ情報', {'fields': ('username', 'email', 'password', 'picture', 'website', 'circle', 'circle_info')}),
         ('パーミッション', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
     )
 
     add_fieldsets = (
         ('ユーザ情報', {
-            'fields': ('username', 'email', 'password', 'confirm_password')
+            'fields': ('username', 'email', 'password', 'confirm_password', 'website', 'circle', 'circle_info')
         }),
     )
 

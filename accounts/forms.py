@@ -39,10 +39,13 @@ class RegistForm(forms.ModelForm):
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
     picture = forms.FileField(required=False)
+    website = forms.URLField(required=False)
+    circle = forms.CharField(label='サークル名', required=False)
+    circle_info = forms.CharField(label='活動内容', required=False, widget=forms.Textarea)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'is_staff', 'is_active', 'is_superuser', 'picture']
+        fields = ['username', 'email', 'password', 'is_staff', 'is_active', 'is_superuser', 'picture', 'website', 'circle', 'circle_info']
     
     def clean_password(self):
         return self.initial['password']
@@ -58,10 +61,13 @@ class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(label='名前')
     email = forms.EmailField(label='メールアドレス')
     picture = forms.FileField(label='トップ画像', required=False)
+    website = forms.URLField(required=False)
+    circle = forms.CharField(label='サークル名', required=False)
+    circle_info = forms.CharField(label='活動内容', required=False, widget=forms.Textarea)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'picture']
+        fields = ['username', 'email', 'picture', 'website', 'circle', 'circle_info']
 
 
 class PasswordChangeForm(forms.ModelForm):

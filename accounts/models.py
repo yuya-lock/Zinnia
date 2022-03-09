@@ -41,6 +41,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     picture = models.FileField(null=True, upload_to='picture/')
+    website = models.URLField(null=True)
+    circle = models.CharField(max_length=32, null=True)
+    circle_info = models.CharField(max_length=800, null=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

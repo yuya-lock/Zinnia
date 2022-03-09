@@ -5,6 +5,13 @@
 {% include "_header.html" %}
 {% endblock %}
 
+
+{% for post in object_list %}
+    {{ post.university }}
+    {{ post.user }}
+{% endfor %}
+
+
 {% block content %}
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
@@ -12,39 +19,53 @@
         <h1 class="fw-light">Album example</h1>
         <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
         <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
+            <a href="{% url 'shares:post_create' %}" class="btn btn-primary my-2">新規投稿</a>
             <a href="#" class="btn btn-secondary my-2">Secondary action</a>
         </p>
         </div>
     </div>
 </section>
-<div class="container">
-    <button><a href="{% url 'shares:post_create' %}" class="nav-link link-dark px-2">投稿画面</a></button>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <td>タイトル</td>
-                <td>大学名</td>
-                <td>投稿者</td>
-                <td>内容</td>
-                <td>写真</td>
-                <td>投稿時間</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for post in object_list reversed %}
-            <tr>
-                <td><a href="{% url 'shares:post_detail' pk=post.id %}">{{ post.title}}</a></td>
-                <td>{{ post.university }}</td>
-                <td>{{ post.user }}</td>
-                <td>{{ post.body }}</td>
-                <td>{{ post.picture }}</td>
-                <td>{{ post.created_at }}</td>
-            </tr>
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for post in object_list %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{ post.picture.url }}" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ post.title}}</text></img>
+
+                    <div class="card-body">
+                        <p class="card-text">{{ post.body }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button"  class="btn btn-sm btn-outline-secondary" onclick="location.href='{%  url 'shares:post_detail' pk=post.id %}'">Detail</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">ユーザー名:{{ post.user }}</button>
+                            </div>
+                            <small class="text-muted">{{ post.created_at|date:"Y/n/j" }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </tbody>
-    </table>
+        </div>
+    </div>
+    <div class="py-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center pagination-lg">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 {% endblock %}
-
-
