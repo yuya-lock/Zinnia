@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block header %}
+{% include "_header.html" %}
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <button><a href="{% url 'shares:post_update' pk=post.pk %}" class="nav-link link-dark px-2">編集</a></button>

@@ -5,6 +5,10 @@
 <link href="{% static 'accounts/user_detail.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block header %}
+{% include "_header.html" %}
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <a href="{% url 'accounts:user_update' pk=user.pk %}">ユーザー情報変更</a>
