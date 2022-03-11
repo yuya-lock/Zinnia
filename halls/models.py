@@ -6,11 +6,11 @@ from accounts.models import User
 class Hall(models.Model):
     name = models.CharField(max_length=255)
     picture = models.FileField(null=True, upload_to='hall_picture/')
-    hall_info = models.CharField(max_length=1000, null=True)
+    info = models.CharField(max_length=1000, null=True)
     industry_type = models.CharField(max_length=255)
     genre = models.CharField(max_length=255)
     business_hours = models.CharField(max_length=255)
-    capacity = models.CharField(max_length=255)
+    capacity = models.PositiveIntegerField()
     address = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=32)
     website = models.URLField(null=True)

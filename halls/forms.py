@@ -6,11 +6,11 @@ from .models import Hall, Review, Rating
 class HallCreateForm(forms.ModelForm):
     name = forms.CharField(label='会場名')
     picture = forms.FileField(label='写真')
-    hall_info = forms.CharField(label='詳細情報', widget=forms.Textarea)
+    info = forms.CharField(label='詳細情報', widget=forms.Textarea)
     industry_type = forms.CharField(label='業種')
     genre = forms.CharField(label='ジャンル')
     business_hours = forms.CharField(label='営業時間')
-    capacity = forms.CharField(label='キャパシティ')
+    capacity = forms.IntegerField(label='キャパシティ')
     address = forms.CharField(label='住所')
     phone_number = forms.CharField(label='電話番号')
     website = forms.URLField(label='ホームページ')
@@ -23,4 +23,4 @@ class HallCreateForm(forms.ModelForm):
 
     class Meta:
         model = Hall
-        fields = ['name', 'picture', 'hall_info', 'industry_type', 'genre', 'business_hours', 'capacity', 'address', 'phone_number', 'website', 'region', 'prefecture', 'area', 'is_able', 'buss', 'train']
+        fields = ['name', 'picture', 'info', 'industry_type', 'genre', 'business_hours', 'capacity', 'address', 'phone_number', 'website', 'region', 'prefecture', 'area', 'is_able', 'buss', 'train']
