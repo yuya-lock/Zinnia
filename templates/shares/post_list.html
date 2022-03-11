@@ -5,13 +5,6 @@
 {% include "_header.html" %}
 {% endblock %}
 
-
-{% for post in object_list %}
-    {{ post.university }}
-    {{ post.user }}
-{% endfor %}
-
-
 {% block content %}
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
@@ -30,15 +23,21 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for post in object_list %}
             <div class="col">
-                <div class="card shadow-sm">
-                    <img src="{{ post.picture.url }}" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ post.title}}</text></img>
+                <div class="card shadow-sm h-100">
+                    <img src="{{ post.picture.url }}" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
 
                     <div class="card-body">
-                        <p class="card-text">{{ post.body }}</p>
+                        <h5 class="card-title text-truncate" style="max-width: 25rem;">{{ post.title }}</h5>
+                        <p class="card-text text-truncate" style="max-width: 25rem;">{{ post.body }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button"  class="btn btn-sm btn-outline-secondary" onclick="location.href='{%  url 'shares:post_detail' pk=post.id %}'">Detail</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{% url 'accounts:user_detail' pk=post.user.id %}'">ユーザー名:{{ post.user }}</button>
+                                {% if post.user.circle %}
+                                    <button type="button"  class="btn btn-sm btn-outline-success" onclick="location.href='{%  url 'shares:post_detail' pk=post.id %}'">Detail</button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="location.href='{% url 'accounts:user_detail' pk=post.user.id %}'">{{ post.user.circle }}</button>
+                                {% else %}
+                                    <button type="button"  class="btn btn-sm btn-outline-secondary" onclick="location.href='{%  url 'shares:post_detail' pk=post.id %}'">Detail</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{% url 'accounts:user_detail' pk=post.user.id %}'">{{ post.user }}</button>
+                                {% endif %}
                             </div>
                             <small class="text-muted">{{ post.created_at|date:"Y/n/j" }}</small>
                         </div>
