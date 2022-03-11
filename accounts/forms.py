@@ -38,7 +38,7 @@ class RegistForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
-    profile = forms.CharField(required=False)
+    profile = forms.CharField(required=False, widget=forms.Textarea)
     user_picture = forms.FileField(required=False)
     circle_picture = forms.FileField(required=False)
     user_website = forms.URLField(required=False)
@@ -63,7 +63,7 @@ class UserLoginForm(AuthenticationForm):
 class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(label='名前')
     email = forms.EmailField(label='メールアドレス')
-    profile = forms.CharField(label='プロフィール', required=False)
+    profile = forms.CharField(label='プロフィール', required=False, widget=forms.Textarea)
     user_picture = forms.FileField(label='トップ画像（ユーザー）', required=False)
     user_website = forms.URLField(label='ウェブサイト（ユーザー）', required=False)
     circle = forms.CharField(label='サークル名', required=False)
