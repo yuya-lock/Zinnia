@@ -38,12 +38,15 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=32, unique=True)
     email = models.EmailField(max_length=255)
+    profile = models.CharField(max_length=800, null=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    picture = models.FileField(null=True, upload_to='picture/')
-    website = models.URLField(null=True)
+    user_picture = models.FileField(null=True, upload_to='picture/')
+    user_website = models.URLField(null=True)
     circle = models.CharField(max_length=32, null=True)
     circle_info = models.CharField(max_length=800, null=True)
+    circle_website = models.URLField(null=True)
+    circle_picture = models.FileField(null=True, upload_to='picture/')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

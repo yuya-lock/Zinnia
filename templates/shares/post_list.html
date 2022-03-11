@@ -17,6 +17,10 @@
                 <input type="text" name="circle_name" placeholder="サークル名" value="{{ circle_name }}">
                 <input type="submit" value="検索">
             </form>
+            <form method="get" action="{% url 'shares:post_list' %}">
+                <input type="text" name="university_name" placeholder="大学名" value="{{ university_name }}">
+                <input type="submit" value="検索">
+            </form>
         </p>
         </div>
     </div>
