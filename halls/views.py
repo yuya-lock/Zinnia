@@ -5,8 +5,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import HallCreateForm
-from .models import Hall
+from .forms import HallCreateForm, ReviewCreateForm
+from .models import Hall, Review
 import os
 
 
@@ -67,3 +67,25 @@ class HallDeleteView(LoginRequiredMixin, DeleteView):
     template_name = os.path.join('halls', 'hall_delete.html')
     model = Hall
     success_url = reverse_lazy('halls:hall_list')
+
+
+class ReviewListView(LoginRequiredMixin, ListView):
+    template_name = os.path.join('halls', 'review_list.html')
+    model = Review
+
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    template_name = os.path.join('halls', 'review_create.html')
+    form_class = ReviewCreateForm
+    model = Review
+    
+    def success_url(self):
+        return reverse_lazy('halls:hall_detail', kwargs={'pk': self.object.id})
+
+
+class ReviewDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = os.path.join('halls', 'review_delete.html')
+    model = Review
+    
+    def success_url(self):
+        return reverse_lazy('halls:hall_detail', kwargs={'pk': self.object.id})

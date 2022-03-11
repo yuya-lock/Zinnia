@@ -24,3 +24,12 @@ class HallCreateForm(forms.ModelForm):
     class Meta:
         model = Hall
         fields = ['name', 'picture', 'info', 'industry_type', 'genre', 'business_hours', 'capacity', 'address', 'phone_number', 'website', 'region', 'prefecture', 'area', 'is_able', 'buss', 'train']
+
+
+class ReviewCreateForm(forms.ModelForm):
+    title = forms.CharField(label='タイトル')
+    body = forms.CharField(label='内容', widget=forms.Textarea)
+
+    class Meta:
+        model = Review
+        fields = ['title', 'body']
