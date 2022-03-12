@@ -1,15 +1,14 @@
 from django import forms
 
-from .models import Hall, Review, Rating
+from .models import Hall, Review
 
 
 class HallCreateForm(forms.ModelForm):
     name = forms.CharField(label='会場名')
-    picture = forms.FileField(label='写真')
+    picture = forms.FileField(label='写真', required=False)
     info = forms.CharField(label='詳細情報', widget=forms.Textarea)
     industry_type = forms.CharField(label='業種')
-    genre = forms.CharField(label='ジャンル')
-    business_hours = forms.CharField(label='営業時間')
+    business_hours = forms.CharField(label='営業時間', required=False)
     capacity = forms.IntegerField(label='キャパシティ')
     address = forms.CharField(label='住所')
     phone_number = forms.CharField(label='電話番号')
@@ -18,18 +17,31 @@ class HallCreateForm(forms.ModelForm):
     prefecture = forms.CharField(label='都道府県')
     area = forms.CharField(label='都市')
     is_able = forms.BooleanField(label='空き状況')
-    buss = forms.CharField(label='アクセス（バス）')
-    train = forms.CharField(label='アクセス（電車）')
+    buss = forms.CharField(label='アクセス（バス）', required=False)
+    train = forms.CharField(label='アクセス（電車）', required=False)
 
     class Meta:
         model = Hall
-        fields = ['name', 'picture', 'info', 'industry_type', 'genre', 'business_hours', 'capacity', 'address', 'phone_number', 'website', 'region', 'prefecture', 'area', 'is_able', 'buss', 'train']
+        fields = ['name', 'picture', 'info', 'industry_type', 'business_hours', 'capacity', 'address', 'phone_number', 'website', 'region', 'prefecture', 'area', 'buss', 'train', 'is_able']
 
 
 class ReviewCreateForm(forms.ModelForm):
-    title = forms.CharField(label='タイトル')
-    body = forms.CharField(label='内容', widget=forms.Textarea)
+    title = forms.CharField(label='レビュー')
+    body = forms.CharField(label='詳細内容', widget=forms.Textarea, required=False)
+    rate = forms.fields.ChoiceField(
+        choices = (
+            ('0', '5'),
+            ('1', '4'),
+            ('2', '3'),
+            ('3', '2'),
+            ('4', '1'),
+            ('5', '0')
+        ),
+        label='評価',
+        required=False,
+        widget=forms.widgets.RadioSelect
+    )
 
     class Meta:
         model = Review
-        fields = ['title', 'body']
+        fields = ['title', 'body', 'rate']

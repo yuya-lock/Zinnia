@@ -8,8 +8,7 @@ class Hall(models.Model):
     picture = models.FileField(null=True, upload_to='hall_picture/')
     info = models.CharField(max_length=1000, null=True)
     industry_type = models.CharField(max_length=255)
-    genre = models.CharField(max_length=255)
-    business_hours = models.CharField(max_length=255)
+    business_hours = models.CharField(max_length=255, null=True)
     capacity = models.PositiveIntegerField()
     address = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=32)
@@ -17,9 +16,9 @@ class Hall(models.Model):
     region = models.CharField(max_length=32)
     prefecture = models.CharField(max_length=32)
     area = models.CharField(max_length=32)
-    is_able = models.BooleanField(default=True)
     buss = models.CharField(max_length=255, null=True)
     train = models.CharField(max_length=255, null=True)
+    is_able = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'halls'
@@ -30,7 +29,8 @@ class Hall(models.Model):
 
 class Review(models.Model):
     title = models.CharField(max_length=255)
-    body = models.CharField(max_length=1000)
+    body = models.CharField(max_length=1000, null=True)
+    rate = models.PositiveIntegerField(null=True)
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True
     )
@@ -43,16 +43,3 @@ class Review(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Rating(models.Model):
-    rate = models.PositiveIntegerField()
-    user = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True
-    )
-    hall = models.ForeignKey(
-        Hall, on_delete=models.CASCADE
-    )
-
-    class Meta:
-        db_table = 'ratings'

@@ -11,13 +11,6 @@
 
 {% block content %}
 <div class="row mb-2 p-5">
-    {% if request.user.id == post_user_id %}
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            <button class="mb-2 btn btn-outline-secondary btn-sm" onclick='location.href="{% url 'accounts:user_update' pk=user.pk %}"'>ユーザー情報変更</button>
-            <button class="mb-2 btn btn-outline-secondary btn-sm"  onclick='location.href="{% url 'accounts:password_change' %}"'>パスワード変更</button>
-            <button class="mb-2 btn btn-outline-secondary btn-sm" onclick='location.href="{% url 'accounts:user_delete' pk=user.pk %}"'>アカウント削除</button>
-        </div>
-    {% endif %}
     <div class="col-md-6">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
@@ -47,6 +40,13 @@
             </div>
         </div>
     </div>
+    {% endif %}
+    {% if request.user.id == post_user_id %}
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button class="mb-2 btn btn-outline-secondary btn-sm" onclick='location.href="{% url 'accounts:user_update' pk=user.pk %}"'>ユーザー情報変更</button>
+            <button class="mb-2 btn btn-outline-secondary btn-sm"  onclick='location.href="{% url 'accounts:password_change' %}"'>パスワード変更</button>
+            <button class="mb-2 btn btn-outline-secondary btn-sm" onclick='location.href="{% url 'accounts:user_delete' pk=user.pk %}"'>アカウント削除</button>
+        </div>
     {% endif %}
 </div>
 <div class="album py-5 bg-light">
