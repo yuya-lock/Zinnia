@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import DeleteView
 from django.views.generic.detail import DetailView
-from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,8 +16,14 @@ from shares.models import Post
 import os
 
 
-class HomeView(TemplateView):
+class HomeView(ListView):
     template_name = os.path.join('accounts', 'home.html')
+    model = Post
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        query = query.order_by('-created_at')[:3]
+        return query
 
 
 def regist(request):

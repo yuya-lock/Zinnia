@@ -16,7 +16,7 @@
     <div class="row featurette py-2" style="border: solid gray;">
         <div class="col-md-7">
             <h1 class="featurette-heading d-md-flex justify-content-md-center">{{ object.title}}</h1>
-            <p class="text-muted d-md-flex justify-content-md-center">{{ object.university }} {{ circle }}</p>
+            <p class="text-muted d-md-flex justify-content-md-center">{{ post.university }} {{ circle }}</p>
             <p class="lead">{{ object.body | linebreaksbr }}</p>
             <p class="text-muted d-md-flex justify-content-md-end">{{ object.user }} {{ object.created_at | date:"Y/n/j" }}</p>
         </div>

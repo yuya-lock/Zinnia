@@ -5,7 +5,6 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from accounts.models import User
 from .forms import PostCreateForm
 from .models import Post
 import os
