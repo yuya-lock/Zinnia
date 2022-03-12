@@ -30,12 +30,12 @@ class ReviewCreateForm(forms.ModelForm):
     body = forms.CharField(label='詳細内容', widget=forms.Textarea, required=False)
     rate = forms.fields.ChoiceField(
         choices = (
-            ('0', '5'),
-            ('1', '4'),
+            ('0', '0'),
+            ('1', '1'),
             ('2', '3'),
-            ('3', '2'),
-            ('4', '1'),
-            ('5', '0')
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')
         ),
         label='評価',
         required=False,

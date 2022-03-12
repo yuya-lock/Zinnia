@@ -10,6 +10,10 @@
     <section id="information">
         <div class="container">
             <h3 class="mb-3">{{ object.name }}</h3>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button class="my-2 btn btn-outline-secondary btn-sm" onclick='location.href="{% url 'halls:review_list' pk=hall.pk %}"'>レビューを見る</button>
+                <button class="my-2 btn btn-outline-secondary btn-sm" onclick='location.href="{% url 'halls:review_create' pk=hall.pk %}"'>レビューを書く</button>
+            </div>
             <p>{{ object.info }}</p>
             <div class="row py-5">
                 <div class="col-md-6">

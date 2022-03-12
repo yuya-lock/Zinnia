@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -72,15 +72,35 @@ class HallDeleteView(LoginRequiredMixin, DeleteView):
 class ReviewListView(LoginRequiredMixin, ListView):
     template_name = os.path.join('halls', 'review_list.html')
     model = Review
+    paginate_by = 20
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        query = Review.objects.filter(hall=self.kwargs['pk'])
+        return query
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hall'] = get_object_or_404(Hall, pk=self.kwargs['pk'])
+        return context
 
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     template_name = os.path.join('halls', 'review_create.html')
     form_class = ReviewCreateForm
     model = Review
+
+    def get_success_url(self):
+        return reverse_lazy('halls:review_list', kwargs={'pk': self.kwargs['pk']})
     
-    def success_url(self):
-        return reverse_lazy('halls:hall_detail', kwargs={'pk': self.object.id})
+    def form_valid(self, form):
+        review = form.save(commit=False)
+        review.user = self.request.user
+        hall_pk = self.kwargs['pk']
+        hall = get_object_or_404(Hall, pk=hall_pk)
+        review.hall = hall
+        review.save()
+        return super(ReviewCreateView, self).form_valid(form)
 
 
 class ReviewDeleteView(LoginRequiredMixin, DeleteView):
@@ -88,4 +108,4 @@ class ReviewDeleteView(LoginRequiredMixin, DeleteView):
     model = Review
     
     def success_url(self):
-        return reverse_lazy('halls:hall_detail', kwargs={'pk': self.object.id})
+        return reverse_lazy('halls:review_list', kwargs={'pk': self.kwargs['pk']})
