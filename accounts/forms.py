@@ -1,11 +1,9 @@
-from logging import PlaceHolder
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.forms import AuthenticationForm
-from django.urls import reverse_lazy
 
 
 User = get_user_model()

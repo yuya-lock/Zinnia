@@ -19,13 +19,18 @@ class PostListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         query = super().get_queryset()
         circle_name = self.request.GET.get('circle_name', None)
+        university_name = self.request.GET.get('university_name', None)
         if circle_name:
             query = Post.objects.filter(user__circle__icontains=circle_name)
+        if university_name:
+            query = Post.objects.filter(university__icontains=university_name)
+            query = Post.objects.filter(university__contains=university_name)
         return query.order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['circle_name'] = self.request.GET.get('circle_name', '')
+        context['university_name'] = self.request.GET.get('university_name', '')
         return context
 
 
