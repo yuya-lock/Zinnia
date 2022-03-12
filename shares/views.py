@@ -40,6 +40,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['circle'] = self.object.user.circle
         return context
 
 
