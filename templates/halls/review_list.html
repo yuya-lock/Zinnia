@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% include "_header.html" %}
+{% endblock %}
+
+
+{% for review in object_list %}
+    <p>{{ review.hall.phone_number }}</p>
+{% endfor %}
+
+
+{% block content %}
+<div class="container">
+    <div class="d-flex align-items-center p-3 my-3 rounded shadow-sm" style="background-color: #BDB76B;">
+        <h4 class="mb-0 px-3 lh-1">{{ hall }}</h4>
+    </div>
+
+    <div class="my-3 p-3 rounded shadow-sm" style="background-color: #FFFAF0;">
+        <h5 class="border-bottom pb-2 mb-0"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+        </svg> レビュー</h5>
+        {% for review in object_list %}
+        <div class="d-flex text-muted pt-3">
+            <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" src="{{ review.user.user_picture.url }}" role="img" aria-label=" Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007bff"/></img>
+
+            <p class="pb-1 mb-0 small lh-sm border-bottom">
+                {% if review.user.circle %}
+                    <strong class="d-block text-gray-dark">{{ review.user.circle }} {{ review.rate }}</strong>
+                {% else %}
+                    <strong class="d-block text-gray-dark">{{ review.user }} {{ review.rate }}</strong>
+                {% endif %}
+                {{ review.title }}
+            </p>
+            {% if review.body %}
+                <p class="pt-2"><small class="text-muted">{{ review.body }}</small></p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% include 'pagination.html' %}
+</div>
+{% endblock %}
