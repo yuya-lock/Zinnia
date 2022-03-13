@@ -13,16 +13,17 @@ class HallCreateForm(forms.ModelForm):
     address = forms.CharField(label='住所')
     phone_number = forms.CharField(label='電話番号')
     website = forms.URLField(label='ホームページ')
-    region = forms.CharField(label='地域')
     prefecture = forms.CharField(label='都道府県')
-    area = forms.CharField(label='都市')
+    region = forms.CharField(label='市区町村')
     is_able = forms.BooleanField(label='空き状況')
     buss = forms.CharField(label='アクセス（バス）', required=False)
     train = forms.CharField(label='アクセス（電車）', required=False)
 
     class Meta:
         model = Hall
-        fields = ['name', 'picture', 'info', 'industry_type', 'business_hours', 'capacity', 'address', 'phone_number', 'website', 'region', 'prefecture', 'area', 'buss', 'train', 'is_able']
+        fields = [
+            'name', 'picture', 'info', 'industry_type', 'business_hours', 'capacity', 'address', 'phone_number', 'website',          'prefecture', 'region', 'buss', 'train', 'is_able'
+        ]
 
 
 class ReviewCreateForm(forms.ModelForm):
